@@ -1,0 +1,48 @@
+<div class="main-content">
+  <div class="dashboard">
+    <ul *ngIf="currentSparepart as CurrentSparepart">
+      <li>Name:{{ currentSparepart.name }}</li>
+      <li>Id:{{ currentSparepart.id }}</li>
+
+      <li>Actual Lifetime:{{ actualLifetimeInDays }} days</li>
+      <li>Total Lifetime:{{ totalLifetimeInDays }} days</li>
+      <li>
+        Time remaining :{{ remainingTimeInDays }}
+        days
+      </li>
+    </ul>
+  </div>
+  <div class="sidebar machines">
+    <h3 class="sidebarTitle">Machines</h3>
+    <ul>
+      <li
+        *ngFor="let machine of machines$ | async"
+        (click)="openSparepartsSidebar(machine.id)"
+        [ngClass]="{ 'selected-machine': selectedMachineId === machine.id }"
+      >
+        {{ machine.name }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="sidebar spareparts" [ngClass]="{ open: sparepartsSidebarOpen }">
+    <ul>
+      <h3 class="sidebarTitle">
+        Spareparts
+        <button class="close-button" (click)="closeSparepartsSidebar()">
+          X
+        </button>
+      </h3>
+
+      <li
+        *ngFor="let sparepart of sparepartsOfCurrentMachine"
+        (click)="calculateRemainingTime(sparepart)"
+        [ngClass]="{
+          'selected-sparepart': currentSparepart?.id === sparepart.id
+        }"
+      >
+        {{ sparepart.name }}
+      </li>
+    </ul>
+  </div>
+</div>

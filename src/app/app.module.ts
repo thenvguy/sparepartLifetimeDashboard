@@ -3,16 +3,23 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CommonModule } from '@angular/common';
+import { NgxsModule } from '@ngxs/store';
+import { SparepartState } from './shared/store/sparepart/sparepart.state';
+import { DashboardComponent } from './dashboard/components/dashboard/dashboard.component';
+import { StoreModule } from './shared/store/store.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { MachineState } from './shared/store/machine/machine.state';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxsModule.forRoot([SparepartState, MachineState]),
+    DashboardModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
